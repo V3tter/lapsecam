@@ -4,9 +4,79 @@ Webcam-only timelapse recorder. Samples the camera at the selected
 time-compression rate and streams the selected frames straight into a
 compressed H.264 MP4. No audio, no normal-speed source video, no frame folders.
 
+## Install
+
+Arch Linux. The git clone *is* the installation — updates are just `git pull`.
+
+### One-liner
+
+~~~bash
+curl -fsSL https://raw.githubusercontent.com/V3etter/lapsecam/main/install.sh | bash
+~~~
+
+Clones to `~/LapseCam`, installs the required pacman packages (asks first,
+uses `sudo`), and sets up the `lapsecam` terminal command plus an
+application-menu entry.
+
+### From a clone
+
+~~~bash
+git clone https://github.com/V3etter/lapsecam.git
+cd lapsecam
+./install.sh
+~~~
+
+### Options
+
+| Option | Effect |
+|---|---|
+| `--target DIR` | Install somewhere other than `~/LapseCam` |
+| `--no-deps` | Skip pacman entirely |
+| `--no-optional` | Skip the optional-extras and tray prompts |
+| `--with-tray` | Non-interactive: also set up the tray-icon venv |
+
+Options work with both methods, e.g. `curl -fsSL … | bash -s -- --no-deps`.
+
+### What ends up where
+
+| Path | What |
+|---|---|
+| `~/LapseCam/` | The app (this clone) |
+| `~/.local/bin/lapsecam` | Terminal launcher — `lapsecam`, or `lapsecam -d` to detach |
+| `~/.local/share/applications/lapsecam.desktop` | Application-menu entry |
+| `~/.lapsecam/` | Your history & settings (survives updates and uninstall) |
+| `~/Videos/Timelapses/` | Recordings |
+
+Required packages (installed by the script):
+`python tk python-opencv python-numpy python-pillow ffmpeg xdg-utils`.
+Optional: `ttf-dejavu` (overlay fonts), `libcanberra` (session chime),
+`v4l-utils` (camera debugging). The tray icon additionally needs
+`python-gobject gtk3 libayatana-appindicator` + `pystray` — the installer
+sets all of that up in a private venv if you say yes.
+
+### Update
+
+~~~bash
+cd ~/LapseCam && git pull && ./install.sh --no-deps
+~~~
+
+### Uninstall
+
+~~~bash
+rm -rf ~/LapseCam \
+       ~/.local/bin/lapsecam \
+       ~/.local/share/applications/lapsecam.desktop
+~~~
+
+Recordings and `~/.lapsecam` data are left untouched.
+
 ## Run
 
-    python TimelapseRecorder.py
+~~~bash
+lapsecam        # terminal launcher; -d detaches
+~~~
+
+or without installing: `python TimelapseRecorder.py`
 
 Shortcuts: Ctrl+R start · Esc stop · F11 fullscreen preview.
 
@@ -32,6 +102,12 @@ more densely (smoother motion, roughly proportionally larger files).
   when it starts). Change it between recordings.
 - The end-of-day recap re-samples all sessions to 30 fps; each clip's
   duration is preserved exactly.
+
+## Colour schemes
+
+Six schemes under **Appearance → Colour scheme**: Midnight (default), Nord,
+Dracula, Gruvbox, Solarized Dark, and Paper (light). Switching applies live
+and is remembered in `~/.lapsecam/config.json`.
 
 ## Storage behaviour
 
@@ -62,9 +138,3 @@ A leftover `__recording.mp4` (after a crash/kill) can often be recovered:
   quirks there are the usual XWayland caveats.
 - Exposure lock: on V4L2 the slider is in milliseconds. Locking manual
   exposure is also the fix for dim-room webcams that drop to ~10 fps.
-
-## Colour schemes
-
-Six schemes under **Appearance → Colour scheme**: Midnight (default), Nord,
-Dracula, Gruvbox, Solarized Dark, and Paper (light). Switching applies live
-and is remembered in `~/.lapsecam/config.json`.
