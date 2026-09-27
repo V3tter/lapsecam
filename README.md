@@ -11,7 +11,7 @@ Arch Linux. The git clone *is* the installation — updates are just `git pull`.
 ### One-liner
 
 ~~~bash
-curl -fsSL https://raw.githubusercontent.com/V3etter/lapsecam/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/V3tter/lapsecam/main/install.sh | bash
 ~~~
 
 Clones to `~/LapseCam`, installs the required pacman packages (asks first,
@@ -21,7 +21,7 @@ application-menu entry.
 ### From a clone
 
 ~~~bash
-git clone https://github.com/V3etter/lapsecam.git
+git clone https://github.com/V3tter/lapsecam.git
 cd lapsecam
 ./install.sh
 ~~~
