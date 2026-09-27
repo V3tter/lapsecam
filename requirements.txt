@@ -1,0 +1,11 @@
+# Arch: prefer pacman for the heavy libs —
+#   sudo pacman -S --needed python tk python-opencv python-numpy python-pillow ffmpeg xdg-utils
+# This file is for the all-pip (venv) route; tk + ffmpeg still come from pacman.
+# NOTE: plain `pip install --user` is blocked on current Arch (PEP 668).
+
+opencv-python>=4.8
+imageio-ffmpeg>=0.5      # optional fallback when system ffmpeg is absent
+Pillow>=10.0
+numpy>=1.26
+pystray>=0.19            # optional tray icon; also needs python-gobject +
+                         # libayatana-appindicator from pacman
