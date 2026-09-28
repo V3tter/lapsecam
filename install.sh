@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ============================================================================
-#  LapseCam installer — https://github.com/V3etter/lapsecam
+#  LapseCam installer — https://github.com/V3tter/lapsecam
 #
 #  One-liner:  curl -fsSL <raw-url>/install.sh | bash
 #  From clone: ./install.sh [options]
@@ -9,7 +9,7 @@
 # ============================================================================
 set -euo pipefail
 
-REPO_URL="https://github.com/V3etter/lapsecam.git"
+REPO_URL="https://github.com/V3tter/lapsecam.git"
 
 TARGET_DIR="$HOME/LapseCam"
 INSTALL_DEPS=1
